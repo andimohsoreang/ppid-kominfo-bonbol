@@ -27,7 +27,9 @@ class InformasiPublikController extends Controller
      */
     public function create()
     {
-        //
+        return view('be.informasipublik.create', [
+            "title" => "Informasi Publik"
+        ]);
     }
 
     /**

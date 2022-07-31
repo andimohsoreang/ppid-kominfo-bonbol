@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ $title }} | PPID BonBol</title>
+    <title> {{ $title ?? '' }} | PPID BonBol</title>
 
     <link rel="stylesheet" href={{ asset('be/assets/css/bootstrap.css') }}>
 
@@ -27,17 +27,19 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class='sidebar-title'>Main Menu</li>
-                        <li class="sidebar-item {{ ($title === "Dashboard") ? 'active' : ''}} ">
+                        <li class="sidebar-item {{ ($title === "Dashboard") ? 'active' : ''}} "> 
                             <a href="/dashboard" class='sidebar-link'>
                                 <i data-feather="home" width="20"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ ($title === "Informasi Publik") ? 'active' : ''}}">
-                            <a href="/infopub" class='sidebar-link'>
+                            @role('petugas')
+                            <a href={{ route('petugas.informasipublik') }} class='sidebar-link'>
                                 <i data-feather="triangle" width="20"></i>
                                 <span>Informasi Publik</span>
                             </a>
+                            @endrole
                         </li>
                         <li class="sidebar-item {{ ($title === "Permohonan Informasi") ? 'active' : '' }} ">
                             <a href="/perinfo" class='sidebar-link'>

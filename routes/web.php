@@ -3,6 +3,7 @@
 use App\Http\Controllers\InformasiPublikController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,27 +27,95 @@ Route::get('/', function (){
 });
 
 
-Route::middleware('role:admin')->get('/infopublik', function (){
-    return view('fe.ollie.perminfo');
-});
+Route::group(['middleware' => ['auth','role:admin'],'prefix'=>'admin'],function (){
 
-Route::middleware('role:petugas')->get('/dashboard', function (){
-    return view('be.dashboard', [
-        "title" => "Dashboard"
-    ]);
-});
+    Route::get('/infopublik', function (){
+        return view('fe.ollie.perminfo');
+    });
 
-Route::middleware('role:user')->get('/perinfo', function (){
-    return view('be.permohonan', [ 
-        "title" => "Permohonan Informasi"
-    ]);
-});
+    Route::get('/dashboard', function (){
+        return view('be.dashboard', [
+            "title" => "Dashboard"
+        ]);
+    });
 
-Route::get('/infopub',[InformasiPublikController::class, 'index']);
-Route::post('/infopub/store',[InformasiPublikController::class, 'store'])->name('informasipublik.store');
+    Route::get('/perinfo', function (){
+        return view('be.permohonan', [ 
+            "title" => "Permohonan Informasi"
+        ]);
+    });
+
+    Route::get('/permohonan', [RegistrationController::class, 'index']);
+    
+    
+    Route::get('/infopub',[InformasiPublikController::class, 'index']);
+    Route::post('/infopub/store',[InformasiPublikController::class, 'store'])->name('informasipublik.store');
+
+});    
 
 
-Route::get('/permohonan', [RegistrationController::class, 'index']);
+Route::group(['middleware' => ['auth','role:petugas'],'prefix'=>'petugas'],function (){
+
+    Route::get('/infopublik', function (){
+        return view('fe.ollie.perminfo');
+    });
+
+    Route::get('/dashboard', function (){
+        return view('be.dashboard', [
+            "title" => "Dashboard"
+        ]);
+    });
+
+    Route::get('/perinfo', function (){
+        return view('be.permohonan', [ 
+            "title" => "Permohonan Informasi"
+        ]);
+    });
+
+    Route::get('/permohonan', [RegistrationController::class, 'index']);
+    
+    
+    Route::get('/infopub',[InformasiPublikController::class, 'index'])->name('petugas.informasipublik');
+    Route::get('/infopub/create', [InformasiPublikController::class, 'create'])->name('petugas.informasipublik.create');
+    Route::post('/infopub/store',[InformasiPublikController::class, 'store'])->name('petugas.informasipublik.store');
+
+
+
+});    
+
+
+
+Route::group(['middleware' => ['auth','role:user'],'prefix'=>'user'],function (){
+    
+    Route::get('/infopub',[InformasiPublikController::class, 'index']);
+    Route::post('/infopub/store',[InformasiPublikController::class, 'store'])->name('informasipublik.store');
+    
+});    
+
+    Route::get('/infopublik', function (){
+        return view('fe.ollie.perminfo');
+    });
+
+    Route::get('/dashboard', function (){
+        return view('be.dashboard', [
+            "title" => "Dashboard"
+        ]);
+    });
+
+    Route::get('/perinfo', function (){
+        return view('be.permohonan', [ 
+            "title" => "Permohonan Informasi"
+        ]);
+    });
+
+    Route::get('/permohonan', [RegistrationController::class, 'index']);
+    
+
+
+
+
+
+
 
 
 Auth::routes();

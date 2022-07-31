@@ -3,18 +3,15 @@
 @section('container')
 <div class="main-content container-fluid">
     <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="">
                 <h3>Informasi Publik</h3>
                 <p class="text-subtitle text-muted">Upload Informasi dan Dokumentasi</a>.</p>
             </div>
-            <div class="col-12 col-md-6 order-md-2 order-first">
-                <nav aria-label="breadcrumb" class='breadcrumb-header'>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Datatable</li>
-                    </ol>
-                </nav>
+            <div class="">
+                <a href={{ route('petugas.informasipublik.create') }} class="btn btn-outline-primary block fw-bold px-5">
+                    Tambah Informasi
+                </a>
             </div>
         </div>
     </div>
@@ -24,12 +21,6 @@
                 Informasi dan Dokumentasi
             </div>
             <div class="card-body">
-                <div class="col-lg-12">
-                    <button type="button" class="btn btn-outline-primary block fw-bold" data-bs-toggle="modal"
-                        data-bs-target="#default">
-                        Tambah Informasi
-                    </button>
-                </div>
                 <table class='table table-striped' id="table1">
                     <thead>
                         <tr>
@@ -101,7 +92,7 @@
                     <div class="col-lg-12">
                         <h6>Klasifikasi Infirmasi</h6>
                         <fieldset class="form-group">
-                            <select class="form-select" name="klasifikasi" id="basicSelect">
+                            <select class="form-select" name="klasifikasi" id="basicSelect" required>
                                 <option value="Tersedia Setiap Saat">Tersedia Setiap Saat</option>
                                 <option value="Serta Merta">Serta Merta</option>
                                 <option value="Berkala">Berkala</option>
@@ -110,11 +101,16 @@
                     </div>
                     <div class="form-group">
                         <label for="basicInput">Judul</label>
-                        <input type="text" class="form-control" name="judul" id="basicInput" placeholder="Enter email">
+                        <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" id="basicInput" required>
+                        @error('judul')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                           <label for="exampleFormControlTextarea1" class="form-label fw-bold">Ringkasan</label>
-                          <textarea class="form-control" name="ringkasan" id="exampleFormControlTextarea1"></textarea>
+                          <textarea class="form-control" name="ringkasan" id="exampleFormControlTextarea1" required></textarea>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <p class="fw-bold">Upload Informasi</p>
