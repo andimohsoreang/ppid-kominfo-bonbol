@@ -45,6 +45,6 @@ class User extends Authenticatable
     ];
 
     public function informasipublik(){
-        $this->hasMany(InformasiPublik::class);
+        return $this->hasMany(InformasiPublik::class);
     }
 }

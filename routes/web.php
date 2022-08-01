@@ -78,6 +78,10 @@ Route::group(['middleware' => ['auth','role:petugas'],'prefix'=>'petugas'],funct
     Route::get('/infopub',[InformasiPublikController::class, 'index'])->name('petugas.informasipublik');
     Route::get('/infopub/create', [InformasiPublikController::class, 'create'])->name('petugas.informasipublik.create');
     Route::post('/infopub/store',[InformasiPublikController::class, 'store'])->name('petugas.informasipublik.store');
+    Route::get('/infopub/show/{id}',[InformasiPublikController::class, 'show'])->name('petugas.informasipublik.show');
+    Route::delete('infpub/destroy/{id}',[InformasiPublikController::class,'destroy'])->name('petugas.informasipublik.destroy');
+    Route::get('/infopub/edit/{id}',[InformasiPublikController::class,'edit'])->name('petugas.informasipublik.edit');
+    Route::put('/infopub/update/{id}',[InformasiPublikController::class,'update'])->name('petugas.informasipublik.update');
 
 
 

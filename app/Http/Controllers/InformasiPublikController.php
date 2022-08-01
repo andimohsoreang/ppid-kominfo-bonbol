@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\InformasiPublik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InformasiPublikController extends Controller
 {
@@ -16,8 +18,11 @@ class InformasiPublikController extends Controller
     public function index()
     {
         return view('be.informasipublik', [
-            "title" => "Informasi Publik"
+            "title" => "Informasi Publik",
+            "informasis" => InformasiPublik::orderBy('created_at','desc')->get()
         ]);
+
+
     }
 
     /**
@@ -54,7 +59,7 @@ class InformasiPublikController extends Controller
         
         
 
-        InformasiPublik::create([
+        $create = InformasiPublik::create([
             'user_id' => Auth::user()->id,
             'klasifikasi' => $request->klasifikasi,
             'judul'=> $request->judul,
@@ -65,7 +70,15 @@ class InformasiPublikController extends Controller
 
         $file->move('uploads/infopub/',$newfile);
 
-        return redirect('/dashboard');
+        if($create){
+            Alert::success('Success','Informasi Berhasil di Upload');
+            return redirect()->route('petugas.informasipublik');
+        } else {
+            Alert::error('Failed', 'Informasi Gagal di Upload');
+            return redirect()->route('petugas.informasipublik');
+            
+        }
+
     }
 
     /**
@@ -74,9 +87,15 @@ class InformasiPublikController extends Controller
      * @param  \App\Models\InformasiPublik  $informasiPublik
      * @return \Illuminate\Http\Response
      */
-    public function show(InformasiPublik $informasiPublik)
+    public function show($id)
     {
-        //
+        $data = InformasiPublik::findorfail($id);
+        // return dd($data);
+
+        return view('be.informasipublik.view',[
+            "title" => "Informasi Publik",
+            "data" => $data
+        ]);
     }
 
     /**
@@ -85,9 +104,14 @@ class InformasiPublikController extends Controller
      * @param  \App\Models\InformasiPublik  $informasiPublik
      * @return \Illuminate\Http\Response
      */
-    public function edit(InformasiPublik $informasiPublik)
+    public function edit($id)
     {
-        //
+        $data = InformasiPublik::findorfail($id);
+
+        return view('be.informasipublik.edit', [
+            "title" => "Ubah Data Informasi Publik",
+            "data" => $data
+        ]);
     }
 
     /**
@@ -97,9 +121,58 @@ class InformasiPublikController extends Controller
      * @param  \App\Models\InformasiPublik  $informasiPublik
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InformasiPublik $informasiPublik)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'klasifikasi' => ['required'],
+            'judul'=>['required'],
+            'ringkasan'=>['required'],
+            
+        ]);
+
+        $data = InformasiPublik::findorfail($id);
+        
+                
+        if($request->has('file')){
+            if(File::exists($request->filelama)){
+                File::delete($request->filelama);
+            }
+            
+            $file =  $request->file;
+            $newfile = time().$file->getClientOriginalName();
+            $ukuranfile = $file->getSize();
+
+            $file->move('uploads/infopub/',$newfile);
+
+            
+            $data_array = [
+                'klasifikasi'=> $request->klasifikasi,
+                'judul'=>$request->judul,
+                'ringkasan'=>$request->ringkasan,
+                'file'=> 'uploads/infopub/'.$newfile,
+                'filesize' => $ukuranfile
+            ];
+        } else {
+            $data_array = [
+                'klasifikasi'=> $request->klasifikasi,
+                'judul'=>$request->judul,
+                'ringkasan'=>$request->ringkasan,
+                
+            ];
+            }
+
+            $data->update($data_array);
+
+            if($data){
+                Alert::success('Sukses','Informasi Berhasil di Update');
+                return redirect()->route('petugas.informasipublik');
+            } else {
+                Alert::error('Gagal', 'Informasi Gagal di Update');
+                return redirect()->route('petugas.informasipublik');
+                
+            }
+
+            
     }
 
     /**
@@ -108,8 +181,22 @@ class InformasiPublikController extends Controller
      * @param  \App\Models\InformasiPublik  $informasiPublik
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InformasiPublik $informasiPublik)
+    public function destroy($id)
     {
-        //
+        $data = InformasiPublik::findorfail($id);
+        $file = $data->file;
+        if(File::exists($file)){
+            File::delete($file);
+        }
+
+        $data = InformasiPublik::where('id',$data->id)->delete();
+
+        if($data){
+            Alert::success('Success','Informasi Berhasil di Hapus');
+            return redirect()->route('petugas.informasipublik');
+        } else {
+            Alert::error('Failed', 'Informasi Gagal di Hapus');
+            return redirect()->route('petugas.informasipublik');
+        }
     }
 }
