@@ -18,8 +18,8 @@ class InformasiPublik extends Model
         'filesize'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
-
     }
 }

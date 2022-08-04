@@ -29,7 +29,7 @@
                 @endif
                 <div class="card-content">
                     <div class="card-body">
-                        <form action={{ route('petugas.informasipublik.store') }} method="POST" enctype="multipart/form-data"> 
+                        <form action="{{ route('petugas.informasipublik.store') }}" method="POST" enctype="multipart/form-data"> 
                             @csrf
                             <div class="form-body">
                                 <div class="row">

@@ -29,7 +29,12 @@
                 @endif
                 <div class="card-content">
                     <div class="card-body">
-                        <form action={{ route('petugas.informasipublik.update',$data->id) }} method="POST" enctype="multipart/form-data"> 
+                        @role('admin')
+                        <form action="{{ route('admin.informasipublik.update',$data->id) }}" method="POST" enctype="multipart/form-data"> 
+                        @endrole
+                        @role('petugas')
+                        <form action="{{ route('petugas.informasipublik.update',$data->id) }}" method="POST" enctype="multipart/form-data"> 
+                        @endrole
                             @csrf
                             @method('put')
                             <div class="form-body">
@@ -38,16 +43,16 @@
                                         <h6 class="fw-bold">Klasifikasi Infirmasi</h6>
                                         <fieldset class="form-group">
                                             <select class="form-select" name="klasifikasi" id="basicSelect" required>
-                                                <option value="Tersedia Setiap Saat">Tersedia Setiap Saat</option>
-                                                <option value="Serta Merta">Serta Merta</option>
-                                                <option value="Berkala">Berkala</option>
+                                                <option value="Tersedia Setiap Saat" {{ ($data->klasifikasi == "Tersedia Setiap Saat") ? 'selected' : '' }}>Tersedia Setiap Saat</option>
+                                                <option value="Serta Merta" {{ ($data->klasifikasi == "Serta Merta") ? 'selected' : '' }}>Serta Merta</option>
+                                                <option value="Berkala" {{ ($data->klasifikasi == "Berkala") ? 'selected' : '' }}>Berkala</option>
                                             </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="basicInput" class="fw-bold">Judul</label>
-                                            <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" id="basicInput" value={{ $data->judul }}>
+                                            <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" id="basicInput" value="{{ $data->judul }}"">
                                             @error('judul')
                                                 <div class="alert alert-danger">
                                                     {{ $message }}
