@@ -29,7 +29,12 @@
                 @endif
                 <div class="card-content">
                     <div class="card-body">
+                        @role('admin')
+                        <form action="{{ route('admin.informasipublik.store') }}" method="POST" enctype="multipart/form-data"> 
+                        @endrole
+                        @role('petugas')
                         <form action="{{ route('petugas.informasipublik.store') }}" method="POST" enctype="multipart/form-data"> 
+                        @endrole
                             @csrf
                             <div class="form-body">
                                 <div class="row">
