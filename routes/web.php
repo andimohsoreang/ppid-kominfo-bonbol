@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InformasiPublikController;
+use App\Http\Controllers\KlasifikasiController;
 use App\Http\Controllers\KontakKamiController;
 use App\Http\Controllers\PengajuanKeberatanController;
 use App\Http\Controllers\PermohonanInformasiController;
@@ -54,10 +55,12 @@ Route::group(['middleware' => ['auth','role:admin'],'prefix'=>'admin'],function 
     Route::get('/akun/password', [AdminController::class, 'akunpassword'])->name('admin.password');
     Route::put('/akun/password/update/{id}', [AdminController::class, 'akunpasswordupdate'])->name('admin.password.update');
 
-    Route::get('/klasifikasi', [AdminController::class, 'klasifikasi'])->name('admin.klasifikasi');
-    Route::get('/klasifikasi/edit/{id}', [AdminController::class, 'klasifikasiedit'])->name('admin.klasifikasi.edit');
-    Route::put('/klasifikasi/update/{id}', [AdminController::class, 'klasifikasiupdate'])->name('admin.klasifikasi.update');
-    Route::delete('/klasifikasi/destroy/{id}', [AdminController::class, 'klasifikasidestroy'])->name('admin.klasifikasi.destroy');
+    Route::get('/klasifikasi', [KlasifikasiController::class, 'index'])->name('admin.klasifikasi');
+    Route::get('/klasifikasi/create', [KlasifikasiController::class, 'create'])->name('admin.klasifikasi.create');
+    Route::post('/klasifikasi/store', [KlasifikasiController::class, 'store'])->name('admin.klasifikasi.store');
+    Route::get('/klasifikasi/edit/{id}', [KlasifikasiController::class, 'edit'])->name('admin.klasifikasi.edit');
+    Route::put('/klasifikasi/update/{id}', [KlasifikasiController::class, 'update'])->name('admin.klasifikasi.update');
+    Route::delete('/klasifikasi/destroy/{id}', [KlasifikasiController::class, 'destroy'])->name('admin.klasifikasi.destroy');
 
     // Informasi Publikasi
     Route::get('/infopub',[PetugasInformasiPublikController::class, 'index'])->name('admin.informasipublik');

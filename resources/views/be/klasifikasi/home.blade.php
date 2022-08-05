@@ -10,7 +10,7 @@
                 <h3>Master Klasifikasi</h3>
                 <p class="text-subtitle text-muted">Master Data - Klasifikasi.</p>
             </div>
-            <a href="" class="btn btn-outline-primary block fw-bold px-5">Tambah Klasifikasi</a>
+            <a href="{{ route('admin.klasifikasi.create') }}" class="btn btn-outline-primary block fw-bold px-5">Tambah Klasifikasi</a>
         </div>
     </div>
     <section class="section">
@@ -30,11 +30,11 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $klasifikasi->klasifikasi }}</td>
                             <td>
-                                <form action={{ route('admin.petugas.destroy',$klasifikasi->id) }} method="post"
+                                <form action={{ route('admin.klasifikasi.destroy',$klasifikasi->id) }} method="post"
                                     onsubmit = "return confirm('Yakin ingin menghapus data ini?')">
                                     @csrf
                                     @method('delete')
-                                    <a href={{ route('admin.petugas.edit',$klasifikasi->id) }} class="btn
+                                    <a href={{ route('admin.klasifikasi.edit',$klasifikasi->id) }} class="btn
                                         btn-warning icon">
                                         <i data-feather="edit" width="20"></i>
                                     </a>

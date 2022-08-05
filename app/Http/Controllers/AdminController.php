@@ -153,13 +153,4 @@ class AdminController extends Controller
 
         }
     }
-
-    public function klasifikasi()
-    {
-        $klasifikasis = Klasifikasi::orderBy('created_at', 'desc')->get();
-        return view('be.klasifikasi.home', [
-            'title' => 'Klasifkasi',
-            'klasifikasis' => $klasifikasis
-        ]);
-    }
 }
