@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Biodata;
+use App\Models\InformasiPublik;
 use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,7 +25,47 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $infopub_total = InformasiPublik::count(); 
+        $permoinfo_total = PermohonanInformasi::count(); 
+        $pengkeb_total = PengajuanKeberatan::count(); 
+
+        return view('home', compact('infopub_total','permoinfo_total','pengkeb_total'));
+    }
+
+    public function statistik()
+    {
+        $infopub_total = InformasiPublik::count(); 
+        $permoinfo_total = PermohonanInformasi::count(); 
+        $pengkeb_total = PengajuanKeberatan::count(); 
+        $permoinfo_selesai_total = PermohonanInformasi::where('status', 2)->count(); 
+
+        $infopub = InformasiPublik::join('klasifikasis', 'informasi_publiks.klasifikasi_id', '=', 'klasifikasis.id')->select(DB::raw('COUNT(*) as count, klasifikasis.klasifikasi'))
+            ->groupBy('klasifikasis.klasifikasi')->get();
+
+            // dd($infopub);
+
+        $permoinfo_belum = PermohonanInformasi::where('status', 0)->count();
+        $permoinfo_diproses = PermohonanInformasi::where('status', 1)->count();
+        $permoinfo_diberikan = PermohonanInformasi::where('status', 2)->count();
+        $permoinfo_ditolak = PermohonanInformasi::where('status', 3)->count();
+
+        $permoinfo = PermohonanInformasi::join('users', 'permohonan_informasis.user_id', '=', 'users.id')
+            ->whereMonth('permohonan_informasis.created_at', Carbon::now()->month)
+            ->select(DB::raw('COUNT(*) as count, users.name'))
+            ->groupBy('users.name')
+            ->take(10)
+            ->get();
+
+        $pengkeb = PengajuanKeberatan::join('users', 'pengajuan_keberatans.user_id', '=', 'users.id')
+            ->whereMonth('pengajuan_keberatans.created_at', Carbon::now()->month)
+            ->select(DB::raw('COUNT(*) as count, users.name'))
+            ->groupBy('users.name')
+            ->take(10)
+            ->get();
+
+            // dd($pengkeb);
+
+        return view('statistik', compact('infopub', 'permoinfo', 'pengkeb', 'infopub_total', 'permoinfo_total', 'pengkeb_total', 'permoinfo_selesai_total', 'permoinfo_belum', 'permoinfo_diproses', 'permoinfo_diberikan', 'permoinfo_ditolak'));
     }
 
     public function indexlogin()

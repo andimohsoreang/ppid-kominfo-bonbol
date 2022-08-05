@@ -46,7 +46,7 @@
                         @foreach($informasis as $informasi)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $informasi->klasifikasi }}</td>
+                            <td>{{ $informasi->klasifikasi->klasifikasi }}</td>
                             <td>{{ $informasi->judul }}</td>
                             <td>{{ $informasi->ringkasan }}</td>
                             <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $informasi->created_at)->isoFormat('D MMMM Y')}}</td>

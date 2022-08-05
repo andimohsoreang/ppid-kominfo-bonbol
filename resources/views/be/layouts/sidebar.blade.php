@@ -1,16 +1,30 @@
 <div id="sidebar" class='active'>
     <div class="sidebar-wrapper active">
-        <div class="sidebar-header">
+        <div class="sidebar-header mb-0">
             <img src={{ asset('be/assets/images/ppidbonebol.png') }} alt="logo" srcset="">
         </div>
+        <hr>
         <div class="sidebar-menu">
             <ul class="menu">
-                <li class='sidebar-title'>Main Menu</li>
+                @role('admin')
+                <li class="sidebar-title pt-0">
+                    <div class="bg-grad">
+                        Administrator Area
+                    </div>
+                </li>
+                @endrole
+                <li class='sidebar-title'>Menu Utama</li>
                 @role('admin')
                 <li class="sidebar-item @if(request()->routeIs('admin.dashboard')) active @endif">
                     <a href="{{ route('admin.dashboard') }}" class='sidebar-link'>
                         <i data-feather="home" width="20"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @if(request()->routeIs('admin.klasifikasi')) active @endif">
+                    <a href="{{ route('admin.klasifikasi') }}" class='sidebar-link'>
+                        <i data-feather="list" width="20"></i>
+                        <span>Master Klasifikasi</span>
                     </a>
                 </li>
                 <li class="sidebar-item @if(request()->routeIs('admin.informasipublik', 'admin.informasipublik.create', 'admin.informasipublik.show', 'admin.informasipublik.edit')) active @endif">
@@ -78,6 +92,41 @@
                     <a href="{{ route('user.pengajuankeberatan') }}" class='sidebar-link'>
                         <i data-feather="alert-circle" width="20"></i>
                         <span>Pengajuan Keberatan</span>
+                    </a>
+                </li>
+                @endrole
+
+                @role('admin')
+                <li class='sidebar-title'>Pengguna</li>
+                <li class="sidebar-item @if(request()->routeIs('admin.petugas')) active @endif">
+                    <a href="{{ route('admin.petugas') }}" class='sidebar-link'>
+                        <i data-feather="user" width="20"></i>
+                        <span>Petugas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @if(request()->routeIs('admin.pemohon')) active @endif">
+                    <a href="{{ route('admin.pemohon') }}" class='sidebar-link'>
+                        <i data-feather="user" width="20"></i>
+                        <span>Pemohon</span>
+                    </a>
+                </li>
+                <li class='sidebar-title'>Lainnya</li>
+                <li class="sidebar-item @if(request()->routeIs('admin.laporan')) active @endif">
+                    <a href="{{ route('admin.laporan') }}" class='sidebar-link'>
+                        <i data-feather="printer" width="20"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @if(request()->routeIs('admin.laporan')) active @endif">
+                    <a href="{{ route('admin.profilkantor') }}" class='sidebar-link'>
+                        <i data-feather="square" width="20"></i>
+                        <span>Profil Kantor</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @if(request()->routeIs('admin.laporan')) active @endif">
+                    <a href="{{ route('admin.kotakpesan') }}" class='sidebar-link'>
+                        <i data-feather="archive" width="20"></i>
+                        <span>Kotak Pesan</span>
                     </a>
                 </li>
                 @endrole

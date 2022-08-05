@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <h5>Klasifikasi</h5>
-                    <p>{{ $data->klasifikasi }}</p>
+                    <p>{{ $data->klasifikasi->klasifikasi }}</p>
                 </div>
                 <div class="form-group">
                     <h5>Petugas</h5>

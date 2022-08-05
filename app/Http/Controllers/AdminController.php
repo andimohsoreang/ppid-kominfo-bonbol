@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InformasiPublik;
+use App\Models\Klasifikasi;
 use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
 use App\Models\User;
@@ -103,5 +104,62 @@ class AdminController extends Controller
 
         Alert::success('Berhasil', 'Password anda berhasil diperbarui');
         return redirect()->route('admin.password');
+    }
+
+    public function user()
+    {
+        if (request()->routeIs('admin.petugas')) {
+            $users = User::whereHas('roles', function($q){
+                $q->where('name', 'petugas');
+            })->get();
+            // dd($users);
+            return view('be.user.home', [
+                'title' => 'Pemohon',
+                'users' => $users
+            ]);
+        } else {
+            $users = User::whereHas('roles', function($q){
+                $q->where('name', 'user');
+            })->get();
+            // dd($users);
+            return view('be.user.home', [
+                'title' => 'Petugas',
+                'users' => $users
+            ]);
+        }
+    }
+
+    public function usershow($id)
+    {
+
+    }
+
+    public function useredit($id)
+    {
+        
+    }
+
+    public function userupdate(Request $request, $id)
+    {
+        
+    }
+
+    public function userdestroy($id)
+    {
+        $user = User::findorfail($id);
+        if (request()->routeIs('admin.petugas')) {
+            $permoinfo = PermohonanInformasi::findorfail();
+        } else {
+
+        }
+    }
+
+    public function klasifikasi()
+    {
+        $klasifikasis = Klasifikasi::orderBy('created_at', 'desc')->get();
+        return view('be.klasifikasi.home', [
+            'title' => 'Klasifkasi',
+            'klasifikasis' => $klasifikasis
+        ]);
     }
 }

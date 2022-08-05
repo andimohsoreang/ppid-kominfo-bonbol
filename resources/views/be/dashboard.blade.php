@@ -194,7 +194,7 @@
         </div>
     </div>
 
-    @role('user')
+    {{-- @role('user') --}}
     <div class="row">
         <div class="col-12 col-lg-8">
             <div class="card">
@@ -208,8 +208,10 @@
                         </p>
                     </div>
                     <hr>
-                    <p>
-                        PPID adalah bla bla bla.
+                    <p style="text-align: justify;">
+                        Pejabat Pengelola Informasi dan Dokumentasi (PPID) Bonel Bolango adalah pejabat yang bertanggung jawab di bidang penyimpanan, 
+                        pendokumentasian, penyediaan, dan/atau pelayanan informasi di Pemerintah Bone Bolango. Dengan keberadaan PPID maka masyarakat yang akan 
+                        menyampaikan permohonan informasi lebih mudah dan tidak berbelit karena dilayani lewat satu pintu.
                     </p>
                 </div>
             </div>
@@ -251,7 +253,7 @@
             </div>
         </div>
     </div>
-    @endrole
+    {{-- @endrole --}}
 </section>
 @endsection
 

@@ -11,7 +11,7 @@ class InformasiPublik extends Model
 
     protected $fillable = [
         'user_id',
-        'klasifikasi',
+        'klasifikasi_id',
         'judul',
         'ringkasan',
         'file',
@@ -21,5 +21,10 @@ class InformasiPublik extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function klasifikasi()
+    {
+        return $this->belongsTo(Klasifikasi::class, 'klasifikasi_id', 'id');
     }
 }

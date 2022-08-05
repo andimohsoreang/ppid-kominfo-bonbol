@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InformasiPublik;
+use App\Models\Klasifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -20,12 +21,12 @@ class PetugasInformasiPublikController extends Controller
         if (Auth::user()->hasRole('admin')) {
             return view('be.informasipublik.home', [
                 "title" => "Informasi Publik",
-                "informasis" => InformasiPublik::orderBy('created_at','desc')->get()
+                "informasis" => InformasiPublik::orderBy('created_at','desc')->get(),
             ]);
         } else {
             return view('be.informasipublik.home', [
                 "title" => "Informasi Publik",
-                "informasis" => InformasiPublik::where('user_id', Auth::user()->id)->orderBy('created_at','desc')->get()
+                "informasis" => InformasiPublik::where('user_id', Auth::user()->id)->orderBy('created_at','desc')->get(),
             ]);
         }
     }
@@ -38,7 +39,8 @@ class PetugasInformasiPublikController extends Controller
     public function create()
     {
         return view('be.informasipublik.create', [
-            "title" => "Informasi Publik"
+            "title" => "Informasi Publik",
+            "klasifikasis" => Klasifikasi::get()
         ]);
     }
 
@@ -52,7 +54,7 @@ class PetugasInformasiPublikController extends Controller
     {
      
         $request->validate([
-            'klasifikasi' => ['required'],
+            'klasifikasi_id' => ['required'],
             'judul'=>['required'],
             'ringkasan'=>['required'],
             'file'=>['required']
@@ -65,7 +67,7 @@ class PetugasInformasiPublikController extends Controller
 
         $create = InformasiPublik::create([
             'user_id' => Auth::user()->id,
-            'klasifikasi' => $request->klasifikasi,
+            'klasifikasi_id' => $request->klasifikasi_id,
             'judul'=> $request->judul,
             'ringkasan'=> $request->ringkasan,
             'file'=> 'uploads/infopub/'.$newfile,
@@ -126,7 +128,8 @@ class PetugasInformasiPublikController extends Controller
         if ($data->user_id == Auth::user()->id) {
             return view('be.informasipublik.edit', [
                 "title" => "Ubah Data Informasi Publik",
-                "data" => $data
+                "data" => $data,
+                "klasifikasis" => Klasifikasi::get()
             ]);
         } else {
             Alert::error('Maaf','Anda tidak mempunyai akses ke halaman ini.');
@@ -148,7 +151,7 @@ class PetugasInformasiPublikController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'klasifikasi' => ['required'],
+            'klasifikasi_id' => ['required'],
             'judul'=>['required'],
             'ringkasan'=>['required'],
         ]);
@@ -169,7 +172,7 @@ class PetugasInformasiPublikController extends Controller
 
             
             $data_array = [
-                'klasifikasi'=> $request->klasifikasi,
+                'klasifikasi_id'=> $request->klasifikasi_id,
                 'judul'=>$request->judul,
                 'ringkasan'=>$request->ringkasan,
                 'file'=> 'uploads/infopub/'.$newfile,
@@ -177,7 +180,7 @@ class PetugasInformasiPublikController extends Controller
             ];
         } else {
             $data_array = [
-                'klasifikasi'=> $request->klasifikasi,
+                'klasifikasi_id'=> $request->klasifikasi_id,
                 'judul'=>$request->judul,
                 'ringkasan'=>$request->ringkasan,
                 

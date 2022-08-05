@@ -17,6 +17,27 @@
     <link rel="stylesheet" href={{ asset('be/assets/css/app.css') }}>
     <!-- Include Choices CSS -->
     <link rel="stylesheet" href="{{ asset('be/assets/vendors/choices.js/choices.min.css') }}" />
+
+    <style>
+         .bg-grad {
+            background-image: linear-gradient(to right, #1F1C2C 0%, #928DAB  51%, #1F1C2C  100%);
+            padding: 15px 15px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+          }
+
+          .bg-grad:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+    </style>
 </head>
 
 <body>

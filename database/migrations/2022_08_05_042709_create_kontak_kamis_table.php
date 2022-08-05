@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInformasiPubliksTable extends Migration
+class CreateKontakKamisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateInformasiPubliksTable extends Migration
      */
     public function up()
     {
-        Schema::create('informasi_publiks', function (Blueprint $table) {
+        Schema::create('kontak_kamis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('klasifikasi_id');
-            $table->string('judul');
-            $table->string('ringkasan');
-            $table->string('file');
-            $table->string('filesize');
+            $table->string('nama');
+            $table->string('email');
+            $table->text('pesan');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateInformasiPubliksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('informasi_publiks');
+        Schema::dropIfExists('kontak_kamis');
     }
 }

@@ -26,6 +26,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            @role('admin|petugas')
+                            <th>Nama Pemohon</th>
+                            <th>Kategori</th>
+                            @endrole
                             <th>Rincian Informasi</th>
                             <th>Tujuan Penggunaan Informasi</th>
                             <th>Tanggal Permohonan</th>
@@ -37,6 +41,16 @@
                         @foreach($datapis as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            @role('admin|petugas')
+                            <td>{{ $item->user->name }}</td>
+                            <td>
+                                @if($item->user->biodata->kategori_pemohon == 1)
+                                Lembaga/Instansi
+                                @else
+                                Perorangan
+                                @endif
+                            </td>
+                            @endrole
                             <td>{{ $item->rincian }}</td>
                             <td>{{ $item->tujuan }}</td>
                             <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->isoFormat('dddd, D MMMM Y') }}</td>

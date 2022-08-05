@@ -1,4 +1,4 @@
-@if(request()->routeIs('infopub','pemohon.register','lembaga.register','perorangan.register'))
+@if(request()->routeIs('infopub','pemohon.register','lembaga.register','perorangan.register', 'statistik'))
 <nav id="scrollspy" class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
 @else 
 <nav id="scrollspy" class="navbar navbar-light bg-light navbar-expand-lg fixed-top" data-spy="affix" data-offset-top="20">
@@ -15,13 +15,13 @@
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('infopub') }}">Informasi Publik</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('pemohon.register') }}">Permohonan Informasi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('statistik') }}">Statistik</a>
                 </li>
                 <li class="nav-item ml-0 ml-lg-4">
                     @auth

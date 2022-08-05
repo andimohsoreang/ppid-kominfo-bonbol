@@ -48,7 +48,7 @@
                         @foreach($datas as $item)                            
                         <tr>
                             <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$item->created_at)->isoFormat('D MMMM Y HH:mm') }}</td>
-                            <td>{{ $item->klasifikasi }}</td>
+                            <td>{{ $item->klasifikasi->klasifikasi }}</td>
                             <td>{{ $item->judul }}</td>
                             <td>KOMINFO</td>
                             <td>{{ pathinfo(storage_path().$item->file, PATHINFO_EXTENSION) }}</td>

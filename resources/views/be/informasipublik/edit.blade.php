@@ -42,10 +42,11 @@
                                     <div class="col-12">
                                         <h6 class="fw-bold">Klasifikasi Infirmasi</h6>
                                         <fieldset class="form-group">
-                                            <select class="form-select" name="klasifikasi" id="basicSelect" required>
-                                                <option value="Tersedia Setiap Saat" {{ ($data->klasifikasi == "Tersedia Setiap Saat") ? 'selected' : '' }}>Tersedia Setiap Saat</option>
-                                                <option value="Serta Merta" {{ ($data->klasifikasi == "Serta Merta") ? 'selected' : '' }}>Serta Merta</option>
-                                                <option value="Berkala" {{ ($data->klasifikasi == "Berkala") ? 'selected' : '' }}>Berkala</option>
+                                            <select class="form-select" name="klasifikasi_id" id="basicSelect" required>
+                                                <option value="" hidden>Pilih Klasifikasi</option>
+                                                @foreach($klasifikasis as $item)
+                                                    <option value="{{ $item->id }}" {{ ($data->klasifikasi_id == $item->id) ? 'selected' : '' }}>{{ $item->klasifikasi }}</option>
+                                                @endforeach
                                             </select>
                                         </fieldset>
                                     </div>

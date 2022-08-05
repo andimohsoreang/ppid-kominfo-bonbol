@@ -41,10 +41,11 @@
                                     <div class="col-12">
                                         <h6 class="fw-bold">Klasifikasi Informasi</h6>
                                         <fieldset class="form-group">
-                                            <select class="form-select" name="klasifikasi" id="basicSelect" required>
-                                                <option value="Tersedia Setiap Saat">Tersedia Setiap Saat</option>
-                                                <option value="Serta Merta">Serta Merta</option>
-                                                <option value="Berkala">Berkala</option>
+                                            <select class="form-select" name="klasifikasi_id" id="basicSelect" required>
+                                                <option value="" hidden>Pilih Klasifikasi</option>
+                                                @foreach($klasifikasis as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->klasifikasi }}</option>
+                                                @endforeach
                                             </select>
                                         </fieldset>
                                     </div>
