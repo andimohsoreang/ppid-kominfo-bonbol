@@ -55,7 +55,7 @@
                         <div class="d-flex flex-column align-items-center justify-content-center py-4">
                             <h1 class="mb-0"><i class="ti-info-alt"></i></h1>
                             <div class="text-center">
-                                <h2 class="m-0">{{ $infopub_total }}</h2>
+                                <h2 class="m-0">{{ $infopub_total ?? '' }}</h2>
                                 <p class="mt-1 mb-0 text-light text-uppercase font-weight-bold">Informasi</p>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                         <div class="d-flex flex-column align-items-center justify-content-center py-4">
                             <h1 class="mb-0"><i class="ti-upload"></i></h1>
                             <div class="text-center">
-                                <h2 class="m-0">{{ $permoinfo_total }}</h2>
+                                <h2 class="m-0">{{ $permoinfo_total ?? '' }}</h2>
                                 <p class="mt-1 mb-0 text-light text-uppercase font-weight-bold">Permohonan</p>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                         <div class="d-flex flex-column align-items-center justify-content-center py-4">
                             <h1 class="mb-0"><i class="ti-alert"></i></h1>
                             <div class="text-center">
-                                <h2 class="m-0">{{ $pengkeb_total }}</h2>
+                                <h2 class="m-0">{{ $pengkeb_total ?? '' }}</h2>
                                 <p class="mt-1 mb-0 text-light text-uppercase font-weight-bold">Keberatan</p>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <div class="d-flex flex-column align-items-center justify-content-center py-4">
                             <h1 class="mb-0"><i class="ti-check-box"></i></h1>
                             <div class="text-center">
-                                <h2 class="m-0">{{ $permoinfo_selesai_total }}</h2>
+                                <h2 class="m-0">{{ $permoinfo_selesai_total ?? '' }}</h2>
                                 <p class="mt-1 mb-0 text-light text-uppercase font-weight-bold">Selesai</p>
                             </div>
                         </div>
@@ -151,14 +151,14 @@
         data: {
             labels: [
                 @foreach($infopub as $label)
-                    '{{ $label->klasifikasi }}',
+                    '{{ $label->klasifikasi ?? '' }}',
                 @endforeach
             ],
             datasets: [{
                 label: '# of Votes',
                 data: [
                     @foreach($infopub as $data)
-                    {{ $data->count }},
+                    {{ $data->count ?? '' }},
                     @endforeach
                 ],
                 backgroundColor: [
@@ -203,10 +203,10 @@
             datasets: [{
                 label: '# of Votes',
                 data: [
-                    {{ $permoinfo_belum }},
-                    {{ $permoinfo_diproses }},
-                    {{ $permoinfo_diberikan }},
-                    {{ $permoinfo_ditolak }}
+                    {{ $permoinfo_belum ?? '' }},
+                    {{ $permoinfo_diproses ?? '' }},
+                    {{ $permoinfo_diberikan ?? '' }},
+                    {{ $permoinfo_ditolak ?? '' }}
                 ],
                 backgroundColor: [
                     '#6c757d',
@@ -246,13 +246,13 @@
         data: {
             labels: [
                 @foreach($permoinfo as $label_permo)
-                    '{{ $label_permo->name }}',
+                    '{{ $label_permo->name ?? '' }}',
                 @endforeach
             ],
             datasets: [{
                 data: [
                     @foreach($permoinfo as $data_permo)
-                        {{ $data_permo->count }},
+                        {{ $data_permo->count ?? '' }},
                     @endforeach
                 ],
                 backgroundColor: [
@@ -282,13 +282,13 @@
         data: {
             labels: [
                 @foreach($pengkeb as $label_pengkeb)
-                    '{{ $label_pengkeb->name }}',
+                    '{{ $label_pengkeb->name ?? '' }}',
                 @endforeach
             ],
             datasets: [{
                 data: [
                     @foreach($pengkeb as $data_pengkeb)
-                        {{ $data_pengkeb->count }},
+                        {{ $data_pengkeb->count ?? '' }},
                     @endforeach
                 ],
                 backgroundColor: [

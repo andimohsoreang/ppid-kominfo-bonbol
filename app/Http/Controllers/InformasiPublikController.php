@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InformasiPublik;
+use App\Models\ProfilKantor;
 use Illuminate\Http\Request;
 
 class InformasiPublikController extends Controller
@@ -18,7 +19,8 @@ class InformasiPublikController extends Controller
         // dd($datas);
         return view('infopub', [
             'title' => 'Informasi Publik',
-            'datas' => $datas
+            'datas' => $datas,
+            'profilkantor' => ProfilKantor::first()
         ]);
     }
 

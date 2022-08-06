@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Biodata;
 use App\Models\InformasiPublik;
+use App\Models\KontakKami;
 use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
+use App\Models\ProfilKantor;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
 use Carbon\Carbon;
@@ -29,7 +31,9 @@ class UserController extends Controller
         $permoinfo_total = PermohonanInformasi::count(); 
         $pengkeb_total = PengajuanKeberatan::count(); 
 
-        return view('home', compact('infopub_total','permoinfo_total','pengkeb_total'));
+        $profilkantor = ProfilKantor::first();
+
+        return view('home', compact('infopub_total','permoinfo_total','pengkeb_total', 'profilkantor'));
     }
 
     public function statistik()
@@ -65,7 +69,9 @@ class UserController extends Controller
 
             // dd($pengkeb);
 
-        return view('statistik', compact('infopub', 'permoinfo', 'pengkeb', 'infopub_total', 'permoinfo_total', 'pengkeb_total', 'permoinfo_selesai_total', 'permoinfo_belum', 'permoinfo_diproses', 'permoinfo_diberikan', 'permoinfo_ditolak'));
+        $profilkantor = ProfilKantor::first();
+
+        return view('statistik', compact('profilkantor', 'infopub', 'permoinfo', 'pengkeb', 'infopub_total', 'permoinfo_total', 'pengkeb_total', 'permoinfo_selesai_total', 'permoinfo_belum', 'permoinfo_diproses', 'permoinfo_diberikan', 'permoinfo_ditolak'));
     }
 
     public function indexlogin()
@@ -214,9 +220,27 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function kontakkami(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => ['required'],
+            'email' => ['required', 'email'],
+            'pesan' => ['required']
+        ]);
+
+        $kontakkami = KontakKami::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'pesan' => $request->pesan
+        ]);
+
+        if ($kontakkami) {
+            Alert::success('Berhasil', 'Pesan anda berhasil dikirim');
+            return redirect()->route('home');
+        } else {
+            Alert::success('Berhasil', 'PPesan anda gagal dikirim');
+            return redirect()->route('home');
+        }
     }
 
     /**

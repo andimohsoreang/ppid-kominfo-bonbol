@@ -111,22 +111,22 @@
                     </a>
                 </li>
                 <li class='sidebar-title'>Lainnya</li>
-                <li class="sidebar-item @if(request()->routeIs('admin.laporan')) active @endif">
-                    <a href="{{ route('admin.laporan') }}" class='sidebar-link'>
-                        <i data-feather="printer" width="20"></i>
-                        <span>Laporan</span>
-                    </a>
-                </li>
-                <li class="sidebar-item @if(request()->routeIs('admin.laporan')) active @endif">
+                <li class="sidebar-item @if(request()->routeIs('admin.profilkantor')) active @endif">
                     <a href="{{ route('admin.profilkantor') }}" class='sidebar-link'>
                         <i data-feather="square" width="20"></i>
                         <span>Profil Kantor</span>
                     </a>
                 </li>
-                <li class="sidebar-item @if(request()->routeIs('admin.laporan')) active @endif">
+                <li class="sidebar-item @if(request()->routeIs('admin.kotakpesan')) active @endif">
                     <a href="{{ route('admin.kotakpesan') }}" class='sidebar-link'>
                         <i data-feather="archive" width="20"></i>
                         <span>Kotak Pesan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @if(request()->routeIs('admin.laporan')) active @endif">
+                    <a href="{{ route('admin.laporan') }}" class='sidebar-link'>
+                        <i data-feather="printer" width="20"></i>
+                        <span>Laporan</span>
                     </a>
                 </li>
                 @endrole

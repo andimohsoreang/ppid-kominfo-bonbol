@@ -101,6 +101,12 @@ class PetugasInformasiPublikController extends Controller
     {
         $data = InformasiPublik::findorfail($id);
         // return dd($data);
+        if (Auth::user()->hasRole('admin')) {
+            return view('be.informasipublik.view',[
+                "title" => "Informasi Publik",
+                "data" => $data
+            ]);
+        } else {
             if ($data->user_id == Auth::user()->id) {
                 return view('be.informasipublik.view',[
                     "title" => "Informasi Publik",
@@ -108,12 +114,9 @@ class PetugasInformasiPublikController extends Controller
                 ]);
             } else {
                 Alert::error('Maaf','Anda tidak mempunyai akses ke halaman ini.');
-                if (Auth::user()->hasRole('admin')) {
-                    return redirect()->route('admin.informasipublik');
-                } else {
                     return redirect()->route('petugas.informasipublik');
-                }
             }
+        }
     }
 
     /**
@@ -125,17 +128,21 @@ class PetugasInformasiPublikController extends Controller
     public function edit($id)
     {
         $data = InformasiPublik::findorfail($id);
-        if ($data->user_id == Auth::user()->id) {
+        if (Auth::user()->hasRole('admin')) {
             return view('be.informasipublik.edit', [
                 "title" => "Ubah Data Informasi Publik",
                 "data" => $data,
                 "klasifikasis" => Klasifikasi::get()
             ]);
         } else {
-            Alert::error('Maaf','Anda tidak mempunyai akses ke halaman ini.');
-            if (Auth::user()->hasRole('admin')) {
-                return redirect()->route('admin.informasipublik');
+            if ($data->user_id == Auth::user()->id) {
+                return view('be.informasipublik.edit', [
+                    "title" => "Ubah Data Informasi Publik",
+                    "data" => $data,
+                    "klasifikasis" => Klasifikasi::get()
+                ]);
             } else {
+                Alert::error('Maaf','Anda tidak mempunyai akses ke halaman ini.');
                 return redirect()->route('petugas.informasipublik');
             }
         }

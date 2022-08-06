@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Biodata;
 use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
+use App\Models\ProfilKantor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,17 +23,27 @@ class PermohonanInformasiController extends Controller
      */
     public function index()
     {
-        return view('pemohon-register');
+        $profilkantor = ProfilKantor::first();
+        $total_user = User::whereHas('roles', function($q){
+            $q->where('name', 'user');
+        })->count();
+        $total_lembaga= Biodata::where('kategori_pemohon', 1)->count();
+        $total_perorangan= Biodata::where('kategori_pemohon', 0)->count();
+        // dd($total_perorangan);
+
+        return view('pemohon-register', compact('profilkantor', 'total_user', 'total_lembaga', 'total_perorangan'));
     }
 
     public function indexlembaga()
     {
-        return view('lembaga-register');
+        $profilkantor = ProfilKantor::first();
+        return view('lembaga-register', compact('profilkantor'));
     }
 
     public function indexperorangan()
     {
-        return view('perorangan-register');
+        $profilkantor = ProfilKantor::first();
+        return view('perorangan-register', compact('profilkantor'));
     }
 
     public function userpermohonaninformasi()

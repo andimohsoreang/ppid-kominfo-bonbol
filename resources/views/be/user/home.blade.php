@@ -6,15 +6,25 @@
 <div class="main-content container-fluid">
     <div class="page-title">
         <div class="d-flex justify-content-between align-items-center">
+            @if(request()->routeIs('admin.petugas'))
             <div class="">
-                @if(request()->routeIs('admin.petugas'))
                 <h3>Petugas</h3>
                 <p class="text-subtitle text-muted">List Data Petugas.</p>
-                @else
+            </div>
+            @else
+            <div class="">
                 <h3>Pemohon</h3>
                 <p class="text-subtitle text-muted">List Data pemohon.</p>
-                @endif
             </div>
+            @endif
+
+            @if(request()->routeIs('admin.petugas'))
+            <div class="">
+                <a href="{{ route('admin.petugas.create') }}" class="btn btn-outline-primary block fw-bold px-5">
+                    Tambah Petugas
+                </a>
+            </div>
+            @endif
         </div>
     </div>
     <section class="section">
@@ -25,6 +35,9 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
+                            @if(request()->routeIs('admin.pemohon'))
+                            <th>Kategori</th>
+                            @endif
                             <th>Email</th>
                             <th>Aksi</th>
                         </tr>
@@ -34,6 +47,15 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
+                            @if(request()->routeIs('admin.pemohon'))
+                            <td>
+                                @if($user->kategori_pemohon == 1)
+                                Lembaga/Instansi
+                                @elseif($user->kategori_pemohon == 0)
+                                Perorangan
+                                @endif
+                            </td>
+                            @endif
                             <td>{{ $user->email }}</td>
                             <td>
                                 @if(request()->routeIs('admin.petugas'))
@@ -48,6 +70,10 @@
                                     <a href={{ route('admin.petugas.edit',$user->id) }} class="btn
                                         btn-warning icon">
                                         <i data-feather="edit" width="20"></i>
+                                    </a>
+                                    <a href={{ route('admin.petugas.password',$user->id) }} class="btn
+                                        btn-info icon" title="Ganti Password">
+                                        <i data-feather="key" width="20"></i>
                                     </a>
                                     <button type="submit" class="btn btn-danger btn-sm icon">
                                         <i data-feather="trash" width="20"></i>
@@ -65,6 +91,10 @@
                                     <a href={{ route('admin.pemohon.edit',$user->id) }} class="btn
                                         btn-warning icon">
                                         <i data-feather="edit" width="20"></i>
+                                    </a>
+                                    <a href={{ route('admin.pemohon.password',$user->id) }} class="btn
+                                        btn-info icon" title="Ganti Password">
+                                        <i data-feather="key" width="20"></i>
                                     </a>
                                     <button type="submit" class="btn btn-danger btn-sm icon">
                                         <i data-feather="trash" width="20"></i>

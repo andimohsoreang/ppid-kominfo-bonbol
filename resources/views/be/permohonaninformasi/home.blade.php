@@ -33,6 +33,9 @@
                             <th>Rincian Informasi</th>
                             <th>Tujuan Penggunaan Informasi</th>
                             <th>Tanggal Permohonan</th>
+                            @role('admin')
+                            <th>Petugas</th>
+                            @endrole
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -54,6 +57,9 @@
                             <td>{{ $item->rincian }}</td>
                             <td>{{ $item->tujuan }}</td>
                             <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->isoFormat('dddd, D MMMM Y') }}</td>
+                            @role('admin')
+                            <td>{{ $item->petugas->name ?? '-' }}</td>
+                            @endrole
                             <td>
                                 @if($item->status == 0)
                                     <span class="badge bg-warning">Dikirim</span>

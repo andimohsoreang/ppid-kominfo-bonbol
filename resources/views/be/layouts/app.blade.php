@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ $title ?? '' }} | PPID BonBol</title>
+    <title> {{ $title ?? '' }} | PPID Bone Bolango</title>
     <link rel="shortcut icon" href="{{ asset('be/assets/images/ppidbonebol.png') }}" type="image/x-icon">
 
     <link rel="stylesheet" href={{ asset('be/assets/css/bootstrap.css') }}>
@@ -38,6 +38,8 @@
             text-decoration: none;
           }
     </style>
+
+    @yield('linkcss')
 </head>
 
 <body>

@@ -45,6 +45,8 @@ Route::post('/pemohon/perorangan', [PermohonanInformasiController::class, 'store
 
 Route::get('/statistik', [UserController::class, 'statistik'])->name('statistik');
 
+Route::post('/kontakkami', [UserController::class, 'kontakkami'])->name('kontakkami');
+
 Auth::routes(['register' => false]);
 
 // Route Admin
@@ -97,10 +99,13 @@ Route::group(['middleware' => ['auth','role:admin'],'prefix'=>'admin'],function 
     Route::get('/pengajuankeberatan/edit/{id}', [PengajuanKeberatanController::class, 'edit'])->name('admin.pengajuankeberatan.edit');
     Route::put('/pengajuankeberatan/update/{id}', [PengajuanKeberatanController::class, 'update'])->name('admin.pengajuankeberatan.update');
     Route::get('/getpermohonaninformasi/{id}', [PengajuanKeberatanController::class, 'getPermohonanInformasi']);
-
-    Route::get('/laporan', [AdminController::class, 'laporan'])->name('admin.laporan');
-
+    
     Route::get('/petugas', [AdminController::class, 'user'])->name('admin.petugas');
+    Route::get('/petugas/create', [AdminController::class, 'usercreate'])->name('admin.petugas.create');
+    Route::post('/petugas/store', [AdminController::class, 'userstore'])->name('admin.petugas.store');
+    Route::get('/petugas/password/{id}', [AdminController::class, 'userpassword'])->name('admin.petugas.password');
+    Route::get('/pemohon/password/{id}', [AdminController::class, 'userpassword'])->name('admin.pemohon.password');
+    Route::put('/petugas/password/update/{id}', [AdminController::class, 'userpasswordupdate'])->name('admin.password.update');
     Route::get('/pemohon', [AdminController::class, 'user'])->name('admin.pemohon');
     Route::get('/petugas/show/{id}', [AdminController::class, 'usershow'])->name('admin.petugas.show');
     Route::get('/pemohon/show/{id}', [AdminController::class, 'usershow'])->name('admin.pemohon.show');
@@ -111,9 +116,13 @@ Route::group(['middleware' => ['auth','role:admin'],'prefix'=>'admin'],function 
     Route::delete('/petugas/destroy/{id}', [AdminController::class, 'userdestroy'])->name('admin.petugas.destroy');
     Route::delete('/pemohon/destroy/{id}', [AdminController::class, 'userdestroy'])->name('admin.pemohon.destroy');
 
-
     Route::get('/profilkantor', [ProfilKantorController::class, 'index'])->name('admin.profilkantor');
+    Route::put('/profilkantor/update/{id}', [ProfilKantorController::class, 'update'])->name('admin.profilkantor.update');
     Route::get('/kotakpesan', [KontakKamiController::class, 'index'])->name('admin.kotakpesan');
+    Route::delete('/kotakpesan/destroy/{id}', [KontakKamiController::class, 'destroy'])->name('admin.kotakpesan.destroy');
+
+    Route::get('/laporan', [AdminController::class, 'laporan'])->name('admin.laporan');
+    Route::get('/laporan/search', [AdminController::class, 'laporansearch'])->name('admin.laporan.search');
 });
 
 // Route Petugas

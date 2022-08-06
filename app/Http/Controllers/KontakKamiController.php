@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KontakKami;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KontakKamiController extends Controller
 {
@@ -14,7 +15,11 @@ class KontakKamiController extends Controller
      */
     public function index()
     {
-        //
+        $kontakkamis = KontakKami::orderBy('created_at', 'desc')->get();
+        return view('be.kotakpesan',[
+            'title' => 'Kotak Pesan',
+            'datas' => $kontakkamis
+        ]);
     }
 
     /**
@@ -78,8 +83,12 @@ class KontakKamiController extends Controller
      * @param  \App\Models\KontakKami  $kontakKami
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KontakKami $kontakKami)
+    public function destroy($id)
     {
-        //
+        $kontakkami = KontakKami::where('id', $id);
+        $kontakkami->delete();
+
+        Alert::success('Berhasil', 'Pesan ini berhasil di hapus');
+        return redirect()->route('admin.kotakpesan');
     }
 }

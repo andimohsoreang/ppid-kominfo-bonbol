@@ -60,8 +60,16 @@
                 </table>
             </div>
         </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0">
+                    <div class="card-body">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </section>
 @endsection
 

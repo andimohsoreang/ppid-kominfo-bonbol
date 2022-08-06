@@ -132,25 +132,21 @@
     <div class="container">
         <div class="infos mb-4 mb-md-2">
             <div class="title">
-                <h6 class="subtitle font-weight-normal">Are locking for</h6>
-                <h5>Lorem inpsum</h5>
-                <p class="font-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <h6 class="subtitle font-weight-normal">{{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y') }}</h6>
+                <h5>PPID BONE BOLANGO</h5>
             </div>
             <div class="socials">
                 <div class="row justify-content-between">
                     <div class="col">
-                        <a class="d-block subtitle"><i class="ti-microphone"></i> (123) 456-7890</a>
-                        <a class="d-block subtitle"><i class="ti-email"></i> info@website.com</a>
+                        <a class="d-block subtitle"><i class="ti-microphone"></i> {{ $profilkantor->telepon ?? '' }}</a>
+                        <a class="d-block subtitle"><i class="ti-email"></i> {{ $profilkantor->email ?? '' }}</a>
                     </div>
                     <div class="col">
                         <h6 class="subtitle font-weight-normal mb-1">Social Media</h6>
                         <div class="social-links">
-                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-facebook"></i></a>
-                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-twitter-alt"></i></a>
-                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-google"></i></a>
-                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-pinterest-alt"></i></a>
-                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-instagram"></i></a>
-                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-rss"></i></a>
+                            <a href="{{ $profilkantor->fb ?? '' }}" class="link pr-1" target="_blank"><i class="ti-facebook"></i></a>
+                            <a href="{{ $profilkantor->tw ?? '' }}" class="link pr-1" target="_blank"><i class="ti-twitter-alt"></i></a>
+                            <a href="{{ $profilkantor->ig ?? '' }}" class="link pr-1" target="_blank"><i class="ti-instagram"></i></a>
                         </div>
                     </div>
                 </div>

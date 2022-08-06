@@ -39,13 +39,68 @@
         </div>
       </div>
     </div>
+
+    <div class="row justify-content-center mb-5">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-lg border border-primary">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <h1 class="m-0">
+                <i class="ti-user"></i>
+              </h1>
+              <div class="ml-3">
+                <p class="m-0 font-weight-bold text-primary">
+                  Total Pengguna
+                </p>
+                <h4 class="m-0">{{ $total_user ?? '' }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-lg border border-primary">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <h1 class="m-0">
+                <i class="ti-user"></i>
+              </h1>
+              <div class="ml-3">
+                <p class="m-0 font-weight-bold text-primary">
+                  Lembaga/Instansi
+                </p>
+                <h4 class="m-0">{{ $total_lembaga ?? '' }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-lg border border-primary">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <h1 class="m-0">
+                <i class="ti-user"></i>
+              </h1>
+              <div class="ml-3">
+                <p class="m-0 font-weight-bold text-primary">
+                  Perorangan
+                </p>
+                <h4 class="m-0">{{ $total_perorangan ?? '' }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     {{-- <form action="{{ route('pemohon.register.store') }}" method="post" enctype="multipart/form-data">
       @csrf
       <div class="row">
         <div class="col-lg-6">
           <div class="form-group">
             <label for="kategori">Kategori Pemohon</label>
-            <select class="form-control @error('kategori_pemohon') is-invalid @enderror" name="kategori_pemohon" id="kategori" onchange="showDiv(this)">
+            <select class="form-control @error('kategori_pemohon') is-invalid @enderror" name="kategori_pemohon"
+              id="kategori" onchange="showDiv(this)">
               <option value="" hidden>Pilih Kategori</option>
               <option value=1>Lembaga/Instansi</option>
               <option value=2>Perorangan</option>
@@ -58,7 +113,8 @@
           </div>
           <div id="hidden_div_lembaga" style="display: none;" class="form-group">
             <label for="no_identitas1">NIK/No.Identitas Lembaga</label>
-            <input type="text" name="no_identitas" class="form-control @error('no_identitas') is-invalid @enderror" id="no_identitas1" placeholder="" value="{{ old('no_identitas1') }}">
+            <input type="text" name="no_identitas" class="form-control @error('no_identitas') is-invalid @enderror"
+              id="no_identitas1" placeholder="" value="{{ old('no_identitas1') }}">
             @error('no_identitas1')
             <div class="invalid-feedback">
               {{ $message }}
@@ -67,7 +123,8 @@
           </div>
           <div id="hidden_div_pribadi" style="display: none;" class="form-group">
             <label for="no_identitas2">NIK/No.Identitas Pribadi</label>
-            <input type="text" name="no_identitas" class="form-control @error('no_identitas') is-invalid @enderror" id="no_identitas2" placeholder="" value="{{ old('no_identitas2') }}">
+            <input type="text" name="no_identitas" class="form-control @error('no_identitas') is-invalid @enderror"
+              id="no_identitas2" placeholder="" value="{{ old('no_identitas2') }}">
             @error('no_identitas2')
             <div class="invalid-feedback">
               {{ $message }}
@@ -76,7 +133,8 @@
           </div>
           <div id="hidden_div_lembaga_1" style="display: none;" class="form-group">
             <label for="nama1">Nama Lembaga / Organisasi</label>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="nama1" placeholder="" value="{{ old('nama1') }}">
+            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="nama1"
+              placeholder="" value="{{ old('nama1') }}">
             @error('name')
             <div class="invalid-feedback">
               {{ $message }}
@@ -85,7 +143,8 @@
           </div>
           <div id="hidden_div_pribadi_1" style="display: none;" class="form-group">
             <label for="nama2">Nama Lengkap</label>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="nama2" placeholder="" value="{{ old('nama2') }}">
+            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="nama2"
+              placeholder="" value="{{ old('nama2') }}">
             @error('name2')
             <div class="invalid-feedback">
               {{ $message }}
@@ -114,7 +173,8 @@
           </div>
           <div class="form-group">
             <label for="alamat">Alamat</label>
-            <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="..." id="alamat">{{ old('alamat') }}</textarea>
+            <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="..."
+              id="alamat">{{ old('alamat') }}</textarea>
             @error('alamat')
             <div class="invalid-feedback">
               {{ $message }}
@@ -123,8 +183,8 @@
           </div>
           <div class="form-group">
             <label for="no_telp">Nomor Telepon</label>
-            <input type="text" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XX-XXXX-XXXX"
-              value="{{ old('no_telp') }}">
+            <input type="text" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp"
+              placeholder="08XX-XXXX-XXXX" value="{{ old('no_telp') }}">
             @error('no_telp')
             <div class="invalid-feedback">
               {{ $message }}
@@ -133,8 +193,8 @@
           </div>
           <div class="form-group">
             <label for="pekerjaan">Pekerjaan</label>
-            <input type="text" name="pekerjaan" class="form-control @error('pekerjaan') is-invalid @enderror" id="pekerjaan"
-              placeholder="Masukan pekerjaan anda :)" value="{{ old('pekerjaan') }}">
+            <input type="text" name="pekerjaan" class="form-control @error('pekerjaan') is-invalid @enderror"
+              id="pekerjaan" placeholder="Masukan pekerjaan anda :)" value="{{ old('pekerjaan') }}">
             @error('pekerjaan')
             <div class="invalid-feedback">
               {{ $message }}
@@ -145,8 +205,8 @@
         <div class="col-lg-6">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukan email anda :)"
-              value="{{ old('email') }}">
+            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
+              placeholder="Masukan email anda :)" value="{{ old('email') }}">
             @error('email')
             <div class="invalid-feedback">
               {{ $message }}
@@ -187,7 +247,7 @@
 </section>
 @endsection
 
-@section('scripts')
+{{-- @section('scripts')
 <script type="text/javascript">
   function showDiv(select){
        if(select.value==2){
@@ -217,4 +277,4 @@
        }
     }
 </script>
-@endsection
+@endsection --}}

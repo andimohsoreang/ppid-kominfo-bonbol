@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4>Detail Permohonan</h4>
-                        @role('user')
+                        @role('user|admin')
                         <h5 class="m-0" title="Petugas">
                             <i data-feather="user"></i>
                             @if($data->status == 1)
